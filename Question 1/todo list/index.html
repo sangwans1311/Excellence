@@ -1,0 +1,115 @@
+<!--mark up starts here -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> shiva's Wish List App | Vue js</title>
+
+    <!-- Importing a Google Font  -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+    <!-- Importing the Miligram CSS Framework   -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+    <!-- background image sourcr api -->
+    
+    <link rel="stylesheet" href="https://source.unsplash.com/WLUHO9A_xik/1600x900">
+
+    <!-- internal css for some alignments and corrections Required -->
+
+    <style>
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .main{
+        background-image: url("https://source.unsplash.com/WLUHO9A_xik/1600x900");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        color: black;
+        background-attachment: fixed;
+        }
+
+    </style>
+</head>
+
+<!-- a scripts of time bar -->
+<script>
+
+    let a;
+        let date;
+        let time;
+        const options = { weekday:'long', year: 'numeric',month:'long' , day:'numeric' };
+        setInterval(() => {
+            a = new Date();
+            date = a.toLocaleDateString(undefined,options);
+            time = a.getHours() + ':' + a.getMinutes() + ':' + a.getSeconds();
+            document.getElementById('time').innerHTML = time + " on " + date;
+        }, 1000);
+
+</script>
+
+<!-- our body starts here -->
+
+<body class="main">
+
+        <!-- Creatig a division with id = app (vue js element) -->
+
+        <div id="app" class="container">
+
+            <!-- Creating a Heading of App -->
+
+            <h1>Shiva's Wish List App</h1>
+           
+        
+
+            <!-- Conditional operation of taking input ......... if (Editing = false) (add a new item will be seen ) 
+        otherwise (editing = true) update a specfic todo item-->
+
+            <div v-if="!isEditing">
+                <input type="text" v-model="todo" placeholder="Write a Wish">
+                <input type="submit" value="Add a Wish" @click="storeTodo">
+            </div>
+
+            <div v-else>
+                <input type="text" v-model="todo">
+                <input type="submit" value="Update a Wish " @click="updateTodo">
+            </div>
+ 
+            <!-- creating a ordered list which will display todo -->
+
+            <ol>
+                <li v-for="(todo, index) in todos">
+                    {{ todo }}
+
+                    <!-- creating buttons for editing the todo  -->
+
+                    <button @click="editTodo(index, todo)">Edit a Wish </button>
+
+                    <!-- creating buttons for deleting  the todo  -->
+
+                    <button @click="removeTodo(index)">Delete A Wish</button>
+                </li>
+            </ol>
+        </div>
+                   
+    <!-- time bar -->
+           
+    <h1 class="display-4">Current time is : <span id="time"></span></h1>
+
+        <!-- importing the cdn of vue js  (because currently vue framework is not installed in my machine)-->
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+        <!-- Importing The main.js file i.e script from local storage folder (containing the logical computations and coding)-->
+
+        <script src="main.js"></script>
+
+</body>
+</html>

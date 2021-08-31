@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list Display , Sort and Pagination from Api Link </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="tableManager.js"></script>
+</head>
+
+<body>
+
+    <h1>Displaying List and Pagination of Data from Api </h1>
+    <hr>
+    <table class="tablemanager">
+        <thead>
+            <tr>
+                <th class="disableFilterby disableSort"> avatar</th>
+                <th>id</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>email</th>
+        <tbody id="body">
+
+        </tbody>
+        </tr>
+        </thead>
+    </table>
+
+</body>
+
+
+<script>
+
+var no = [1, 2];
+    for (no = 1; no <= 2; no++) {
+        fetch("https://reqres.in/api/users?page=" + no)
+            .then((res) => res.json())
+            .then((data) => {
+
+                console.log(data);
+
+                data.data.forEach((user) => {
+                    $("#body").append(`
+            <tr>
+                <th> <img style="border-radius: 60px; with; 60px; height: 60px" src="${user.avatar}"></th>
+                <th>${user.id} </th>
+                <th>${user.first_name} </th>
+                <th>${user.last_name} </th>
+                <th>${user.email} </th>
+                            </tr>
+            `)
+                });
+        })
+    }
+
+             //basic table managing code
+
+		     $('.tablemanager').tablemanager({
+                // firstSort: [[3,0],[2,0],[1,'asc']],
+                disable: ["last"],
+                // appendFilterby: true,
+                // dateFormat: [[4, "dd-mm-yyyy"]],
+                debug: true,
+                // vocabulary: {
+                // voc_filter_by: 'Filtra per',
+                // voc_type_here_filter: 'Scrivi qui per filtrare...',
+                // voc_show_rows: 'Mostra righe'
+                // },
+                 pagination: true,
+                 showrows: [6],
+                //  disableFilterBy: [1]
+            });
+
+</script>
+
+
+</html>
+
